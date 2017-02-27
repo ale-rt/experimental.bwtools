@@ -1,35 +1,35 @@
-.coverage
+# dirs
+/bin/
+/buildout-cache/
+/develop-eggs/
+/eggs/
+/htmlcov/
+/include/
+/lib/
+/local/
+/parts/
+/src/*
+/test.plone_addon/
+/var/
+# excludes
+!/src/experimental
+!/.coveragerc
+!/.editorconfig
+!/.gitattributes
+!/.gitignore
+!/.gitkeep
+!/.travis.yml
+# files
+/.installed.cfg
+/.mr.developer.cfg
+/lib64
+/log.html
+/output.xml
+/pip-selfcheck.json
+/report.html
+/.coverage
 *.egg-info
 *.log
 *.mo
 *.py?
 *.swp
-# dirs
-bin/
-buildout-cache/
-develop-eggs/
-eggs/
-htmlcov/
-include/
-lib/
-local/
-parts/
-src/*
-test.plone_addon/
-var/
-# files
-.installed.cfg
-.mr.developer.cfg
-lib64
-log.html
-output.xml
-pip-selfcheck.json
-report.html
-# excludes
-!.coveragerc
-!.editorconfig
-!.gitattributes
-!.gitignore
-!.gitkeep
-!.travis.yml
-!src/experimental

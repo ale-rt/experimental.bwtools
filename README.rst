@@ -2,37 +2,24 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
    This text does not appear on pypi or github. It is a comment.
 
-==============================================================================
+====================
 experimental.bwtools
-==============================================================================
+====================
 
-Tell me what your product does
-
-Features
---------
-
-- Can be bullet points
-
-
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
+A product that tries to understand the network connection quality
+of the clients
 
 Documentation
 -------------
 
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
+This package injects a small JavaScript file that
+every N minutes
+starts an asynchronous download of reosources from the site.
 
+The measured performanced are then stored in a cookie and
+can be used to activate or deactivate features in your site.
 
-Translations
-------------
-
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
+This package does not take care of switching on and off the features.
 
 
 Installation
@@ -56,15 +43,14 @@ Contribute
 
 - Issue Tracker: https://github.com/collective/experimental.bwtools/issues
 - Source Code: https://github.com/collective/experimental.bwtools
-- Documentation: https://docs.plone.org/foo/bar
 
 
 Support
 -------
 
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+If you are having issues, please let us know:
 
+- https://github.com/collective/experimental.bwtools/issues
 
 License
 -------

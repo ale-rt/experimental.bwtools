@@ -2,20 +2,45 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="experimental.bwtools">
-
-  <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
-  <include package="z3c.jbot" file="meta.zcml" />
-  <browser:jbot
-      directory="overrides"
-      layer="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
-      />
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="experimental.bwtools"
+    >
 
   <!-- Publish static files -->
   <plone:static
       name="experimental.bwtools"
-      type="plone"
       directory="static"
+      type="plone"
+      />
+
+  <browser:view
+      name="bwtools"
+      for="*"
+      permission="zope2.View"
+      class=".bwtools.View"
+      layer="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
+      />
+
+  <browser:viewlet
+      name="experimental.bwtools.check"
+      for="*"
+      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+      permission="zope2.View"
+      class=".bwtools.CheckViewlet"
+      template="templates/check.pt"
+      layer="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
+      zcml:condition="not-installed ploneintranet"
+      />
+
+  <browser:viewlet
+      name="experimental.bwtools.check"
+      for="*"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHead"
+      permission="zope2.View"
+      class=".bwtools.CheckViewlet"
+      template="templates/check.pt"
+      layer="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
+      zcml:condition="installed ploneintranet"
       />
 
 </configure>
