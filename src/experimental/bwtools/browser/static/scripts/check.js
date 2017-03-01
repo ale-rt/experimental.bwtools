@@ -10,7 +10,7 @@
     function set_cookie(value) {
       var expires = new Date();
       expires.setTime(expires.getTime() + (5 * 60 * 1000)); // 5min
-      document.cookie = cookie_name + '=' + value + ';expires=' + expires.toUTCString();
+      document.cookie = cookie_name + '=' + value + ';path=/;expires=' + expires.toUTCString();
     }
 
     /**

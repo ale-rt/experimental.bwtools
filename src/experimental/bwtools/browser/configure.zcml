@@ -13,13 +13,18 @@
       type="plone"
       />
 
-  <browser:view
-      name="bwtools"
+  <browser:pages
       for="*"
       permission="zope2.View"
       class=".bwtools.View"
       layer="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
-      />
+      >
+    <browser:page name="bwtools" />
+    <browser:page
+        name="bwtools-clear"
+        attribute="expire_and_redirect"
+        />
+  </browser:pages>
 
   <browser:viewlet
       name="experimental.bwtools.check"

@@ -20,6 +20,7 @@ class View(BrowserView):
 
     The thresholds are calculated using a regular 3G connection as a reference
     '''
+    _cookie_name = '_bw'
     _latency_max_threshold = .300  # s
     _bandwidth_min_threshold = 800000  # bit/s
 
@@ -27,7 +28,15 @@ class View(BrowserView):
     def cookie(self):
         ''' Look up for the cookie in the request
         '''
-        return self.request.cookies.get('_bw', '')
+        return self.request.cookies.get(self._cookie_name, '')
+
+    def expire_cookie(self):
+        ''' Expire the cookie
+        '''
+        self.request.response.expireCookie(
+            self._cookie_name,
+            path='/',
+        )
 
     @property
     @memoize
@@ -77,6 +86,16 @@ class View(BrowserView):
         if cookiedict['delta0'] > self._latency_max_threshold:
             return 0
         return 1
+
+    def expire_and_redirect(self):
+        ''' Expires the cookie, show a message and return to the context view
+        '''
+        self.expire_cookie()
+        api.portal.show_message(
+            'Cookie %r removed' % self._cookie_name,
+            self.request,
+        )
+        return self.request.response.redirect(self.context.absolute_url())
 
     def __call__(self):
         ''' Return the jsonified cookie
