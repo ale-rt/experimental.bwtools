@@ -123,7 +123,9 @@ class View(BrowserView):
         '''
         self.expire_cookie()
         api.portal.show_message(
-            'Cookie %r removed' % self._cookie_name,
+            'Cookie {cookie_name!r} removed'.format(
+                cookie_name=self._cookie_name,
+            ),
             self.request,
         )
         return self.request.response.redirect(self.context.absolute_url())
@@ -135,9 +137,9 @@ class View(BrowserView):
         if not response:
             msg = 'Not enough information yet'
         else:
-            msg = 'Estimated BW: %dKb/s. MDT %fs' % (
-                response['bandwidth'] / 1024,
-                response['delta0'],
+            msg = 'Estimated BW: {bw}Kb/s. MDT {mdt}s'.format(
+                bw=int(response['bandwidth'] / 1024),
+                mdt=round(response['delta0'], 3),
             )
         api.portal.show_message(
             msg,
