@@ -24,6 +24,10 @@
         name="bwtools-clear"
         attribute="expire_and_redirect"
         />
+    <browser:page
+        name="bwtools-show"
+        attribute="show_and_redirect"
+        />
   </browser:pages>
 
   <browser:viewlet

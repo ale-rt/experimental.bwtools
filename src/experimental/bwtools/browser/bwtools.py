@@ -97,6 +97,23 @@ class View(BrowserView):
         )
         return self.request.response.redirect(self.context.absolute_url())
 
+    def show_and_redirect(self):
+        ''' Show the cookie contents and redirect
+        '''
+        response = self.cookiedict.copy()
+        if not response:
+            msg = 'Not enough information yet'
+        else:
+            msg = 'Estimated BW: %dKb/s. MDT %fs' % (
+                response['bandwidth']/1024,
+                response['delta0'],
+            )
+        api.portal.show_message(
+            msg,
+            self.request,
+        )
+        return self.request.response.redirect(self.context.absolute_url())
+
     def __call__(self):
         ''' Return the jsonified cookie
         '''
