@@ -25,6 +25,33 @@ class View(BrowserView):
     _bandwidth_min_threshold = 800000  # bit/s
 
     @property
+    @memoize
+    def ip(self):
+        ''' Return the client ip
+        '''
+        return (
+            self.request.get('HTTP_X_FORWARDED_FOR') or
+            self.request.get('REMOTE_ADDR', None)
+        )
+
+    @property
+    @memoize
+    def known_bad_ips(self):
+        ''' Return the list of the known bad ips
+        '''
+        return api.portal.get_registry_record(
+            'experimental.bwtools.known_bad_ips',
+            default=(),
+        ) or ()
+
+    @property
+    @memoize
+    def is_bad_ip(self):
+        ''' Return the list of the known bad ips
+        '''
+        return self.ip in self.known_bad_ips
+
+    @property
     def cookie(self):
         ''' Look up for the cookie in the request
         '''
@@ -73,10 +100,14 @@ class View(BrowserView):
     def quality(self):
         ''' Check the network quality and rate it as an integer.
 
+        If it is a known bad ip, skip the check.
         Your application must know what to do with this index.
 
         You may want to override this function completely if you need it
         '''
+        if self.is_bad_ip:
+            return 0
+
         cookiedict = self.cookiedict
         if not cookiedict:
             # When we have no info assume everything is good
@@ -105,7 +136,7 @@ class View(BrowserView):
             msg = 'Not enough information yet'
         else:
             msg = 'Estimated BW: %dKb/s. MDT %fs' % (
-                response['bandwidth']/1024,
+                response['bandwidth'] / 1024,
                 response['delta0'],
             )
         api.portal.show_message(
@@ -146,16 +177,30 @@ class CheckViewlet(ViewletBase):
         '''
         logger.info('%s %s %s', ip, userid, cookie)
 
+    def do_log(self):
+        ''' Exctract some information and log them
+        '''
+        value = self.request.cookies.get('_bw', '')
+        if not value:
+            return
+        ip = self.bwtools.ip
+        userid = api.user.get_current().getId() or 'anonymous'
+        self.log(ip, userid, value)
+
+    @property
+    @memoize
+    def bwtools(self):
+        ''' Get the bwtools view
+        '''
+        return api.content.get_view(
+            'bwtools',
+            self.context,
+            self.request,
+        )
+
     def update(self):
         ''' Log the cookie if found
         '''
-        value = self.request.cookies.get('_bw', '')
-        if value:
-            ip = (
-                self.request.get('HTTP_X_FORWARDED_FOR') or
-                self.request.get('REMOTE_ADDR', None)
-            )
-            userid = api.user.get_current().getId() or 'anonymous'
-            if ip:
-                self.log(ip, userid, value)
+        if not self.bwtools.is_bad_ip:
+            self.do_log()
         return super(CheckViewlet, self).update()
