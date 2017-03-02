@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layers>
-  <layer
-      name="experimental.bwtools"
-      interface="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
-      />
+  <layer interface="experimental.bwtools.interfaces.IExperimentalBwtoolsLayer"
+         name="experimental.bwtools"
+  ></layer>
 </layers>

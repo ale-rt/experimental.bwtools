@@ -5,7 +5,8 @@ Changelog
 0.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Handle known_bad_ips.
+  [ale-rt]
 
 
 0.1.0 (2017-03-02)

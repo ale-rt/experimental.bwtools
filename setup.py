@@ -39,7 +39,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'plone.api',
+        'plone.api>=1.5.1',
         'Products.GenericSetup>=1.8.2',
         'setuptools',
     ],
