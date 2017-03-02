@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+from experimental.bwtools.testing import EXPERIMENTAL_BWTOOLS_ACCEPTANCE_TESTING  # noqa
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
-from experimental.bwtools.testing import EXPERIMENTAL_BWTOOLS_ACCEPTANCE_TESTING  # noqa
 
 import os
 import robotsuite
