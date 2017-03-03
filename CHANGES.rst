@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-0.1.1 (unreleased)
+0.2.0 (2017-03-03)
 ------------------
 
 - Improved test coverage.
