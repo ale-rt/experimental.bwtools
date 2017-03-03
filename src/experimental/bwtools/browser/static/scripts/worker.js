@@ -10,7 +10,7 @@ function measure(filename) {
   measure.start = (new Date()).getTime();
   xhr.send(null);
   measure.end = (new Date()).getTime();
-  measure.len = parseInt(xhr.getResponseHeader('Content-Length') || 0);
+  measure.len = parseInt(xhr.getResponseHeader('Content-Length') || xhr.responseText.length || 0);
   measure.delta = measure.end - measure.start;
   return measure;
 }
