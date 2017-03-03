@@ -5,6 +5,8 @@ Changelog
 0.1.1 (unreleased)
 ------------------
 
+- Improved test coverage.
+- Fix missing Content-Length header.
 - Handle known_bad_ips.
   [ale-rt]
 
